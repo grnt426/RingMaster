@@ -33,4 +33,4 @@ Executing
 	mvn exec:java
 or
 
-	java -jar target/RingMaster-version.jar
+	java -jar target/RingMaster-1.0-jar-with-dependencies.jar
