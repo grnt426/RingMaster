@@ -2,12 +2,15 @@ package RingMaster;
 
 import RingMaster.Cards.Card;
 import RingMaster.Cards.None;
+import RingMaster.Cards.PlayerCard;
 
 import java.util.HashMap;
 
 import static RingMaster.CardType.TYPELESS;
 
 /**
+ * This class will probably be scrapped.
+ *
  * Author:      Grant Kurtz
  */
 public class CardFactory {

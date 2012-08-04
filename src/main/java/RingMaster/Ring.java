@@ -51,4 +51,8 @@ public class Ring {
 		}
 		return ring.peek();
 	}
+
+	public PlayerCard getPlayerCard(){
+		return playerCard;
+	}
 }
