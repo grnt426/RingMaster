@@ -59,7 +59,7 @@ Connecting.......Connected!
     3. BIG_MONSTER, ATTACK
     4. POTION, SINGLE_USE
     5. POTION, SINGLE_USE
-    \>
+    >
 
 Your board is on the bottom of the dashed separator.  Your Player Card (@) sits
 undefended in the middle of all the Empty Cards (N). Your enemy has the same
@@ -77,11 +77,12 @@ The '\>' indicates that the game is waiting for your input.
 Game Commands
 -------------
 The below is an example of what running the available command set looks like.
-    \> menu
+
+    > menu
     play card pos - Place a card on the Ring
     quit - Quit the game
 
-    \> play 3 5
+    > play 3 5
     Placed card at 5.
     Added MONSTER to hand.
     Rotated CW by 1.
