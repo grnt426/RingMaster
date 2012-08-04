@@ -14,10 +14,12 @@ import java.net.Socket;
 public class Server extends Talker{
 
 	private int port;
+	private int seed;
 
-	public Server(int port, ActionListener listener) {
-		super(listener);
+	public Server(int port, ActionListener listener, int seed) {
+		super(listener, true);
 		this.port = port;
+		this.seed = seed;
 	}
 
 	@Override
@@ -31,6 +33,7 @@ public class Server extends Talker{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		sendSeed();
 		talk();
 
 		// Alright, cleanup everything
@@ -41,5 +44,15 @@ public class Server extends Talker{
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private void sendSeed() {
+		try {
+			getOutput().write(seed);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		getListener().actionPerformed(new ActionEvent(this,
+				ActionEvent.ACTION_PERFORMED, "start"));
 	}
 }

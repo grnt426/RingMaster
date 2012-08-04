@@ -1,5 +1,6 @@
 package RingMaster.NetCode;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
@@ -11,9 +12,10 @@ public class Client extends Talker{
 
 	private int port;
 	private String serverIP;
+	private int seed;
 
 	public Client(String ip, int port, ActionListener listener) {
-		super(listener);
+		super(listener, false);
 		serverIP = ip;
 		this.port = port;
 	}
@@ -28,6 +30,7 @@ public class Client extends Talker{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		receiveSeed();
 		talk();
 
 		// tear shit down
@@ -38,5 +41,20 @@ public class Client extends Talker{
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private void receiveSeed() {
+		try {
+			seed = getInput().read();
+		} catch (IOException e) {
+			System.err.println("WHY DIDN'T YOU JUST SEND A FUCKING BYTE?");
+			e.printStackTrace();
+		}
+		getListener().actionPerformed(new ActionEvent(this,
+				ActionEvent.ACTION_PERFORMED, "seedSet"));
+	}
+
+	public int getSeed() {
+		return seed;
 	}
 }

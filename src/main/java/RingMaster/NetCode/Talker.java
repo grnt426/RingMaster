@@ -14,18 +14,19 @@ public abstract class Talker implements Runnable {
 	private InputStream input;
 	private OutputStream output;
 	private boolean gameRunning;
-	private boolean clientTurn;
+	private boolean ourTurn;
 	private String receivedCommand;
 	private ActionListener listener;
 	private String toSendCommand;
 
-	public Talker(ActionListener listener) {
+	public Talker(ActionListener listener, boolean ourTurn) {
 		this.listener = listener;
+		this.ourTurn = ourTurn;
 	}
 
 	public void talk() {
 		while (gameRunning) {
-			if (!clientTurn) {
+			if (ourTurn) {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
@@ -63,6 +64,7 @@ public abstract class Talker implements Runnable {
 				receivedCommand = recvPlayed.toString();
 				listener.actionPerformed(new ActionEvent(this,
 						ActionEvent.ACTION_PERFORMED, "turnEnd"));
+				ourTurn = true;
 			}
 		}
 	}
@@ -79,8 +81,20 @@ public abstract class Talker implements Runnable {
 		gameRunning = false;
 	}
 
-	public void setClientTurn(String command) {
+	public void setOurTurn(String command) {
 		toSendCommand = command;
-		clientTurn = true;
+		ourTurn = false;
+	}
+
+	public ActionListener getListener() {
+		return listener;
+	}
+
+	public InputStream getInput() {
+		return input;
+	}
+
+	public OutputStream getOutput() {
+		return output;
 	}
 }
