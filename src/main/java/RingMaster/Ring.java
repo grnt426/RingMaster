@@ -60,4 +60,12 @@ public class Ring {
 	public int getRotationAmount() {
 		return rotation.getRotationCount();
 	}
+
+	public Card getActive() {
+		if(ring.get(0).getName() == CardInstance.NONE){
+			return playerCard;
+		}
+		else
+			return ring.get(0);
+	}
 }

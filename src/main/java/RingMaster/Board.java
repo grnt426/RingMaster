@@ -133,16 +133,30 @@ public class Board {
 			theirRing = playerOneRing;
 		}
 
-		Card active = ring.getCard(0);
-		Card theirActive = theirRing.getCard(0);
+		Card active = ring.getActive();
+		if(active.getName() == CardInstance.PLAYER)
+			return;
+		Card theirActive = theirRing.getActive();
 
 		activateCard(active, theirActive);
+		if(theirActive.expired()){
+			if(theirActive.getName() == CardInstance.PLAYER){
+				System.out.println("Player card destroyed!");
+			}
+			else{
+				System.out.println(theirActive + " was destroyed!");
+				theirRing.setCard(new None(CardInstance.NONE, CardType.TYPELESS), 0);
+			}
+		}
 	}
 
 	private void activateCard(Card active, Card theirActive) {
 		if(active.getType() == CardType.ATTACK){
 			int dmg = active.getAttackPower() - theirActive.getDefensePower();
 			theirActive.applyDamage(dmg);
+			System.out.println(active.getName() + " attacked " +
+					theirActive.getName() + " for " + dmg + " damage. Defender" +
+					" has " + theirActive.getHealth() + " health left.");
 		}
 	}
 

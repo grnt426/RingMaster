@@ -32,46 +32,55 @@ public class Console {
 
 		while (true) {
 
-			// Print Opposing player's Ring
-			Ring theirRing = controller.getTheirRing();
-			System.out.println("    " + theirRing.getCard(2) + "     " +
-					theirRing.getCard(3));
-			System.out.println();
-			System.out.println("  " + theirRing.getCard(1) + "    " +
-					theirRing.getPlayerCard() + "    " + theirRing.getCard(4));
-			System.out.println();
-			System.out.println("       " + theirRing.getCard(0) + "      " +
-					theirRing.getRotationAmount());
-
-			// Print separator
-			System.out.println("---------------------");
-
-			// Print our Ring
-			Ring ourRing = controller.getOurRing();
-			System.out.println(ourRing.getRotationAmount() + "      " + ourRing.getCard(0));
-			System.out.println();
-			System.out.println("  " + ourRing.getCard(4) + "    " +
-					ourRing.getPlayerCard() + "    " + ourRing.getCard(1));
-			System.out.println();
-			System.out.println("    " + ourRing.getCard(3) + "     " +
-					ourRing.getCard(2));
-
-			// Print our Hand
-			CardCollection hand = controller.getHand();
-			System.out.println();
-			for (int i = 0; i < hand.getCardCount(); i++) {
-				Card c = hand.getCard(i);
-				System.out.println((i + 1) + ". " + c.getName() + ", " + c.getType());
-			}
-
 			if (controller.ourTurn()) {
+
+				// Show Board
+				printBoard();
 
 				// Input Caret
 				processCommand();
 			} else {
-				System.out.println("Waiting for other player to finish...");
+				if(controller.sendCommand())
+					scan.nextLine();
+				printBoard();
+				System.out.println("Waiting...");
 				controller.awaitOurTurn();
+				scan.nextLine();
 			}
+		}
+	}
+
+	private void printBoard() {
+		// Print Opposing player's Ring
+		Ring theirRing = controller.getTheirRing();
+		System.out.println("    " + theirRing.getCard(2) + "     " +
+				theirRing.getCard(3));
+		System.out.println();
+		System.out.println("  " + theirRing.getCard(1) + "    " +
+				theirRing.getPlayerCard() + "    " + theirRing.getCard(4));
+		System.out.println();
+		System.out.println("       " + theirRing.getCard(0) + "      " +
+				theirRing.getRotationAmount());
+
+		// Print separator
+		System.out.println("---------------------");
+
+		// Print our Ring
+		Ring ourRing = controller.getOurRing();
+		System.out.println(ourRing.getRotationAmount() + "      " + ourRing.getCard(0));
+		System.out.println();
+		System.out.println("  " + ourRing.getCard(4) + "    " +
+				ourRing.getPlayerCard() + "    " + ourRing.getCard(1));
+		System.out.println();
+		System.out.println("    " + ourRing.getCard(3) + "     " +
+				ourRing.getCard(2));
+
+		// Print our Hand
+		CardCollection hand = controller.getHand();
+		System.out.println();
+		for (int i = 0; i < hand.getCardCount(); i++) {
+			Card c = hand.getCard(i);
+			System.out.println((i + 1) + ". " + c.getName() + ", " + c.getType());
 		}
 	}
 

@@ -42,6 +42,6 @@ public class BigMonster extends Card {
 
 	@Override
 	public boolean expired() {
-		return hp > 0;
+		return hp < 1;
 	}
 }

@@ -46,4 +46,8 @@ public class Controller {
 	public Ring getOurRing() {
 		return model.getOurRing();
 	}
+
+	public boolean sendCommand() {
+		return model.sendCommand();
+	}
 }

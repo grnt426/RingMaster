@@ -25,8 +25,11 @@ public abstract class Card {
 	}
 
 	public String toString(){
-		if(name == CardInstance.PLAYER)
+		if(name == CardInstance.PLAYER){
+			if(expired())
+				return "x";
 			return "@";
+		}
 		return name.toString().charAt(0) + "";
 	}
 

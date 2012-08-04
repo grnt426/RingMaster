@@ -61,16 +61,27 @@ public class Model {
 
 	private void playOthersCards(int handPos, int ringPos) {
 		board.playCard(!board.isPlayerOne(), handPos, ringPos);
+		System.out.println("Placed " +
+				board.getRing(!board.isPlayerOne()).getCard(ringPos).getName() +
+				" at " + (ringPos + 1) + ".");
 		board.fillHand(!board.isPlayerOne());
+		board.activate(!board.isPlayerOne());
 		board.rotate(!board.isPlayerOne());
+		System.out.println("Rotated CW by " +
+				board.getRing(board.isPlayerOne()).getRotationAmount() + ".");
 	}
 
 	public boolean playCard(int handPos, int placePos) {
-		command = handPos + ":" + placePos;
-		if(board.playCard(board.isPlayerOne(), handPos, placePos)){
+		if (board.playCard(board.isPlayerOne(), handPos, placePos)) {
+			System.out.println("Placed card at " + (placePos + 1) + ".");
+			command = handPos + ":" + placePos; // build command for later use
 			board.fillHand(board.isPlayerOne());
+			System.out.println("Added " + board.getHand().getCard(4).getName() +
+					" to hand.");
 			board.activate(board.isPlayerOne());
 			board.rotate(board.isPlayerOne());
+			System.out.println("Rotated CW by " +
+					board.getRing(board.isPlayerOne()).getRotationAmount() + ".");
 			ourTurn = false;
 			return true;
 		}
@@ -78,8 +89,6 @@ public class Model {
 	}
 
 	public void awaitOurTurn() {
-		if(command != null)
-			talker.setTheirTurn(command);
 		do {
 			try {
 				Thread.sleep(50);
@@ -87,6 +96,14 @@ public class Model {
 				i.printStackTrace();
 			}
 		} while (!ourTurn);
+	}
+
+	public boolean sendCommand() {
+		if (command != null) {
+			talker.setTheirTurn(command);
+			return true;
+		}
+		return false;
 	}
 
 	public void startServer() {
