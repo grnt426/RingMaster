@@ -28,11 +28,62 @@ Game Setup
 
 Turn Procedure
 --------------
-1. Play an Action Card on the Ring, or place an Effect Card in the Effect Slot,
-or play a Rotation Control Card in the Rotation Card Slot
+1. Play an Action Card on the Ring, or play a Rotation Control Card in the
+	Rotation Card Slot
 2. If present, activate the Action Card in the Action Card Slot
 3. Rotate Ring by amount on the active Rotation Card
 4. Draw a Card
+
+Game Output
+-----------
+
+The below is an example of the board before the first move is made
+
+RingMaster!
+Connecting.......Connected!
+    N     N
+
+  N    @    N
+
+       N      1
+---------------------
+1      N
+
+  N    @    N
+
+    N     N
+
+1. MONSTER, ATTACK
+2. MONSTER, ATTACK
+3. BIG_MONSTER, ATTACK
+4. POTION, SINGLE_USE
+5. POTION, SINGLE_USE
+>
+
+Your board is on the bottom of the dashed separator.  Your Player Card (@) sits
+undefended in the middle of all the Empty Cards (N). Your enemy has the same
+setup above the dashed line, but mirrored.
+
+The number in the top-left corner of you board is the current Rotation Card in
+play. At the start, both players will have their Rings rotated by one. Keep in
+mind the Rings will rotate Clockwise.
+
+Your hand is the numbered list.  The name of the card is on the left, and the
+type is on the right. To choose a card, its number is next to it.
+
+The '>' indicates that the game is waiting for your input.
+
+Game Commands
+-------------
+The below is an example of what running the available command set looks like.
+> menu
+play card pos - Place a card on the Ring
+quit - Quit the game
+
+> play 3 5
+Placed card at 5.
+Added MONSTER to hand.
+Rotated CW by 1.
 
 ***
 
