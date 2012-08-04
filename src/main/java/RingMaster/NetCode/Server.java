@@ -34,6 +34,7 @@ public class Server extends Talker{
 			e.printStackTrace();
 		}
 		sendSeed();
+		setGameRunning();
 		talk();
 
 		// Alright, cleanup everything
@@ -49,6 +50,7 @@ public class Server extends Talker{
 	private void sendSeed() {
 		try {
 			getOutput().write(seed);
+			getOutput().flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

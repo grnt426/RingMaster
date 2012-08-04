@@ -31,6 +31,7 @@ public class Client extends Talker{
 			e.printStackTrace();
 		}
 		receiveSeed();
+		setGameRunning();
 		talk();
 
 		// tear shit down

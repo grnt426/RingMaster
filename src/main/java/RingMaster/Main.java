@@ -9,14 +9,17 @@ public class Main {
 	private static final String SERVER = "server";
 
 	public static void main(String[] args){
-		String name = args[0];
-		Model model = new Model(name);
+		String name;
 		Controller c = null;
-		if(args.length == 1){
+		if(args.length == 0){
+			name = "Client";
+			Model model = new Model(name);
 			c = new Controller(name, model);
 		}
-		else if(args.length == 2){
-			c = new Controller(name, model, args[1]);
+		else if(args.length == 1){
+			name = "Server";
+			Model model = new Model(name);
+			c = new Controller(name, model, args[0]);
 		}
 		else{
 			printBadArgs();

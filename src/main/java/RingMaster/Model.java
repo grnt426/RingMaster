@@ -35,7 +35,7 @@ public class Model {
 		listen = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (e.getActionCommand().equals("endTurn")) {
+				if (e.getActionCommand().equals("turnEnd")) {
 					String command = talker.getCommand();
 					processReceivedCommand(command);
 					ourTurn = true;
@@ -54,6 +54,8 @@ public class Model {
 
 	private void processReceivedCommand(String command) {
 		String[] args = command.split(":");
+		System.out.println("COMMAND: " + command);
+		System.out.println(args[0] + ": " + args[1]);
 		int handPos = Integer.parseInt(args[0]);
 		int ringPos = Integer.parseInt(args[1]);
 		playOthersCards(handPos, ringPos);
