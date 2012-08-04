@@ -1,5 +1,6 @@
 package RingMaster;
 
+import RingMaster.Cards.CardCollection;
 import RingMaster.NetCode.Client;
 import RingMaster.NetCode.Server;
 import RingMaster.NetCode.Talker;
@@ -72,6 +73,7 @@ public class Model {
 		server = new Server(PORT, listen, SEED);
 		talker = server;
 		Thread t = new Thread(server);
+		t.start();
 	}
 
 	private void initializeCards(boolean playerOne) {
@@ -82,5 +84,14 @@ public class Model {
 		client = new Client(serverIP, PORT, listen);
 		talker = client;
 		Thread t = new Thread(client);
+		t.start();
+	}
+
+	public boolean isGameRunning() {
+		return gameRunning;
+	}
+
+	public CardCollection getOurHand() {
+		return board.getHand();
 	}
 }

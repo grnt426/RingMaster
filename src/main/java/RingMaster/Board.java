@@ -1,9 +1,6 @@
 package RingMaster;
 
-import RingMaster.Cards.Monster;
-import RingMaster.Cards.PlayerCard;
-import RingMaster.Cards.PlayerCardCollection;
-import RingMaster.Cards.RotationCard;
+import RingMaster.Cards.*;
 
 import java.util.Random;
 
@@ -55,12 +52,18 @@ public class Board {
 		}
 		playerOneCards.drawCards(5);
 
-
 		// Generate Player Two's deck
 		for (int i = 0; i < 50; i++) {
 			playerTwoCards.addToDeck(new Monster(CardInstance.MONSTER,
 					CardType.ATTACK));
 		}
 		playerTwoCards.drawCards(5);
+	}
+
+	public CardCollection getHand() {
+		if(isPlayerOne)
+			return playerOneCards.getHand();
+		else
+			return playerTwoCards.getHand();
 	}
 }

@@ -55,4 +55,8 @@ public class CardCollection {
 	public int getCardCount() {
 		return cards.size();
 	}
+
+	public Card getCard(int i) {
+		return cards.get(i);
+	}
 }

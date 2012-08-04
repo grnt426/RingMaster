@@ -1,6 +1,7 @@
 package RingMaster;
 
 import RingMaster.Cards.Card;
+import RingMaster.Cards.None;
 import RingMaster.Cards.PlayerCard;
 import RingMaster.Cards.RotationCard;
 
@@ -23,7 +24,7 @@ public class Ring {
 		this.rotation = rotation;
 		ring = new LinkedList<Card>();
 		for(int i = 0; i < RING_SIZE; i++){
-			ring.add(CardFactory.createCard(CardInstance.NONE));
+			ring.add(new None(CardInstance.NONE, CardType.TYPELESS));
 		}
 	}
 
