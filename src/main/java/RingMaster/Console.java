@@ -49,9 +49,11 @@ public class Console {
 			}
 		}
 
+		controller.sendCommand();
 		if(controller.weWon()){
 			System.out.println("We have won! YOUR ENEMY IS DEAD, AND SO ARE " +
 					"ALL HIS FRIENDS!");
+			scan.nextLine();
 		}
 		else{
 			System.out.println("YOU HAVE LOST BECAUSE YOU ARE BAD!");

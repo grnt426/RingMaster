@@ -26,7 +26,7 @@ public abstract class Talker implements Runnable {
 		while (gameRunning) {
 			if (ourTurn) {
 				try {
-					Thread.sleep(100);
+					Thread.sleep(10);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -60,7 +60,7 @@ public abstract class Talker implements Runnable {
 					if(receivedCommand == null){
 						// I know this is horrible and wrong, I don't give a
 						// shit
-						System.out.println("Game Ended...");
+						System.out.println("Game Ended...Maybe you lost?");
 						System.exit(1);
 					}
 				} catch (IOException e) {

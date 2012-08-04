@@ -104,7 +104,7 @@ public class Model {
 	public void awaitOurTurn() {
 		do {
 			try {
-				Thread.sleep(50);
+				Thread.sleep(10);
 			} catch (InterruptedException i) {
 				i.printStackTrace();
 			}

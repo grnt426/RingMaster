@@ -12,7 +12,7 @@ public class PlayerCard extends Card {
 
 	public PlayerCard(CardInstance name, CardType type) {
 		super(name, type);
-		hp = 20;
+		hp = 2;
 	}
 
 	@Override
