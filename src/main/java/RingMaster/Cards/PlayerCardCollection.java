@@ -42,4 +42,9 @@ public class PlayerCardCollection {
 	public void removeCardFromHand(int handPos) {
 		hand.removeCard(handPos);
 	}
+
+	public void fillHand() {
+		int addCards = 5 - hand.getCardCount();
+		hand.addCards(deck.drawCards(addCards));
+	}
 }

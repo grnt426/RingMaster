@@ -6,6 +6,7 @@ package RingMaster;
 public enum CardInstance {
 	POTION,
 	MONSTER,
+	BIG_MONSTER,
 	PLAYER,
 	NONE
 }

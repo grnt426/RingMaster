@@ -47,15 +47,31 @@ public class Board {
 
 		// Generate Player One's deck
 		for (int i = 0; i < 50; i++) {
-			playerOneCards.addToDeck(new Monster(CardInstance.MONSTER,
-					CardType.ATTACK));
+			int rand = gen.nextInt(10);
+			if (rand < 4)
+				playerOneCards.addToDeck(new Monster(CardInstance.MONSTER,
+						CardType.ATTACK));
+			else if (rand >= 4 && rand < 8)
+				playerOneCards.addToDeck(new Potion(CardInstance.POTION,
+						CardType.SINGLE_USE));
+			else
+				playerOneCards.addToDeck(new BigMonster(
+						CardInstance.BIG_MONSTER, CardType.ATTACK));
 		}
 		playerOneCards.drawCards(5);
 
 		// Generate Player Two's deck
 		for (int i = 0; i < 50; i++) {
-			playerTwoCards.addToDeck(new Monster(CardInstance.MONSTER,
-					CardType.ATTACK));
+			int rand = gen.nextInt(10);
+			if (rand < 4)
+				playerTwoCards.addToDeck(new Monster(CardInstance.MONSTER,
+						CardType.ATTACK));
+			else if (rand >= 4 && rand < 8)
+				playerTwoCards.addToDeck(new Potion(CardInstance.POTION,
+						CardType.SINGLE_USE));
+			else
+				playerTwoCards.addToDeck(new BigMonster(
+						CardInstance.BIG_MONSTER, CardType.ATTACK));
 		}
 		playerTwoCards.drawCards(5);
 	}
@@ -96,5 +112,19 @@ public class Board {
 				playerTwoCards.removeCardFromHand(handPos);
 			}
 		}
+	}
+
+	public void fillOurHand() {
+		if (isPlayerOne)
+			playerOneCards.fillHand();
+		else
+			playerTwoCards.fillHand();
+	}
+
+	public void fillTheirHand() {
+		if (isPlayerOne)
+			playerTwoCards.fillHand();
+		else
+			playerOneCards.fillHand();
 	}
 }

@@ -63,11 +63,13 @@ public class Model {
 
 	private void playOthersCards(int handPos, int ringPos) {
 		board.playOtherCard(handPos, ringPos);
+		board.fillTheirHand();
 	}
 
 	public boolean playCard(int handPos, int placePos) {
 		command = handPos + ":" + placePos;
 		if(board.playCard(handPos, placePos)){
+			board.fillOurHand();
 			ourTurn = false;
 			return true;
 		}
