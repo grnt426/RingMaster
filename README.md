@@ -17,14 +17,15 @@ reduce the Enemy Player's Player Card to 0 health points; before they do!
 Starting a Game
 ---------------
 The Player hosting the Game must create a Hosted Game.  The Second Player must
-then connect to the Hosting Player's Game by entering the Host's IP address.
+then connect to the Hosting Player's Game by providing the IP Address of the
+Host Player as an argument when starting the game.
 
 Game Setup
 --------
 1. Place your Player Card in the center of the Ring
 2. Place a 1 Rotation Card in the Rotation Card Slot
 2. Draw five Cards from your Deck
-3. Flip a coin to determine starting Player
+3. The player hosting the game goes first
 
 Turn Procedure
 --------------
@@ -36,7 +37,6 @@ Turn Procedure
 
 Game Output
 -----------
-
 The below is an example of the board before the first move is made
 
 RingMaster!
@@ -102,7 +102,18 @@ Building
 
 Executing
 ---------
+As Server
+
 	mvn exec:java
+As Client
+
+    mvn exec:java -Dexec.args=ip_address
+
 or
 
+As Server
+
 	java -jar target/RingMaster-1.0-jar-with-dependencies.jar
+As Client
+
+    java -jar target/RingMaster-1.0-jar-with-dependencies.jar ip_address
