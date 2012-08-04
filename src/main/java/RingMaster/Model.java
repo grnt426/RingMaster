@@ -53,10 +53,19 @@ public class Model {
 	}
 
 	private void processReceivedCommand(String command) {
-		String[] args = command.split(":");
-		int handPos = Integer.parseInt(args[0]);
-		int ringPos = Integer.parseInt(args[1]);
-		playOthersCards(handPos, ringPos);
+		if (command.equals("pass")) {
+			System.out.println("Player chose to pass");
+		} else {
+			String[] args = command.split(":");
+			int handPos = Integer.parseInt(args[0]);
+			int ringPos = Integer.parseInt(args[1]);
+			playOthersCards(handPos, ringPos);
+			board.fillHand(!board.isPlayerOne());
+		}
+		board.activate(!board.isPlayerOne());
+		board.rotate(!board.isPlayerOne());
+		System.out.println("Rotated CW by " +
+				board.getRing(board.isPlayerOne()).getRotationAmount() + ".");
 	}
 
 	private void playOthersCards(int handPos, int ringPos) {
@@ -64,28 +73,32 @@ public class Model {
 		System.out.println("Placed " +
 				board.getRing(!board.isPlayerOne()).getCard(ringPos).getName() +
 				" at " + (ringPos + 1) + ".");
-		board.fillHand(!board.isPlayerOne());
-		board.activate(!board.isPlayerOne());
-		board.rotate(!board.isPlayerOne());
-		System.out.println("Rotated CW by " +
-				board.getRing(board.isPlayerOne()).getRotationAmount() + ".");
 	}
 
 	public boolean playCard(int handPos, int placePos) {
 		if (board.playCard(board.isPlayerOne(), handPos, placePos)) {
 			System.out.println("Placed card at " + (placePos + 1) + ".");
 			command = handPos + ":" + placePos; // build command for later use
-			board.fillHand(board.isPlayerOne());
-			System.out.println("Added " + board.getHand().getCard(4).getName() +
-					" to hand.");
-			board.activate(board.isPlayerOne());
-			board.rotate(board.isPlayerOne());
-			System.out.println("Rotated CW by " +
-					board.getRing(board.isPlayerOne()).getRotationAmount() + ".");
+			performEndTurn(true);
 			ourTurn = false;
 			return true;
 		}
 		return false;
+	}
+
+	private void performEndTurn(boolean pickup) {
+		if(pickup){
+			board.fillHand(board.isPlayerOne());
+			System.out.println("Added " + board.getHand().getCard(4).getName() +
+					" to hand.");
+		}
+		else{
+			System.out.println("Added nothing to hand.");
+		}
+		board.activate(board.isPlayerOne());
+		board.rotate(board.isPlayerOne());
+		System.out.println("Rotated CW by " +
+				board.getRing(board.isPlayerOne()).getRotationAmount() + ".");
 	}
 
 	public void awaitOurTurn() {
@@ -128,6 +141,8 @@ public class Model {
 	}
 
 	public boolean isGameRunning() {
+		if(eitherWon())
+			gameRunning = false;
 		return gameRunning;
 	}
 
@@ -145,5 +160,23 @@ public class Model {
 
 	public Ring getOurRing() {
 		return board.getRing(board.isPlayerOne());
+	}
+
+	public void pass() {
+		command = "pass";
+		performEndTurn(false);
+		ourTurn = false;
+	}
+
+	public boolean weWon() {
+		return board.didPlayerWin(board.isPlayerOne());
+	}
+
+	public boolean eitherWon(){
+		return weWon() || board.didPlayerWin(!board.isPlayerOne());
+	}
+
+	public void quit() {
+		talker.endGame();
 	}
 }

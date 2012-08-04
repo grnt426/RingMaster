@@ -13,6 +13,7 @@ public class Client extends Talker{
 	private int port;
 	private String serverIP;
 	private int seed;
+	private Socket socket;
 
 	public Client(String ip, int port, ActionListener listener) {
 		super(listener, false);
@@ -22,7 +23,7 @@ public class Client extends Talker{
 
 	@Override
 	public void run() {
-		Socket socket = null;
+		socket = null;
 		try {
 			socket = new Socket(serverIP, port);
 			setInput(socket.getInputStream());
@@ -57,5 +58,14 @@ public class Client extends Talker{
 
 	public int getSeed() {
 		return seed;
+	}
+
+	@Override
+	protected void closeSocket() {
+		try {
+			socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

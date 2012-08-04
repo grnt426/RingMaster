@@ -15,6 +15,8 @@ public class Server extends Talker{
 
 	private int port;
 	private int seed;
+	private ServerSocket server;
+	private Socket socket;
 
 	public Server(int port, ActionListener listener, int seed) {
 		super(listener, true);
@@ -24,9 +26,9 @@ public class Server extends Talker{
 
 	@Override
 	public void run() {
-		Socket socket = null;
+		socket = null;
 		try {
-			ServerSocket server = new ServerSocket(port);
+			server = new ServerSocket(port);
 			socket = server.accept();
 			setInput(socket.getInputStream());
 			setOutput(socket.getOutputStream());
@@ -56,5 +58,22 @@ public class Server extends Talker{
 		}
 		getListener().actionPerformed(new ActionEvent(this,
 				ActionEvent.ACTION_PERFORMED, "start"));
+	}
+
+	@Override
+	protected void closeSocket() {
+		try {
+			socket.close();
+			server.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				server.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

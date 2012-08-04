@@ -164,4 +164,11 @@ public class Board {
 	public boolean isPlayerOne() {
 		return isPlayerOne;
 	}
+
+	public boolean didPlayerWin(boolean playerOne) {
+		if(playerOne)
+			return playerTwoRing.getPlayerCard().expired();
+		else
+			return playerOneRing.getPlayerCard().expired();
+	}
 }

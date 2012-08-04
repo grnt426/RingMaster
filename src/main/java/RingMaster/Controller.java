@@ -50,4 +50,16 @@ public class Controller {
 	public boolean sendCommand() {
 		return model.sendCommand();
 	}
+
+	public void pass() {
+		model.pass();
+	}
+
+	public boolean weWon() {
+		return model.weWon();
+	}
+
+	public void quit() {
+		model.quit();
+	}
 }

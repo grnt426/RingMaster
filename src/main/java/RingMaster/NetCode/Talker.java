@@ -33,7 +33,7 @@ public abstract class Talker implements Runnable {
 			}
 
 			// Process client's turn
-			else {
+			else{
 
 				// Tell client card that was played
 				if(toSendCommand != null){
@@ -57,6 +57,12 @@ public abstract class Talker implements Runnable {
 				// Wait for client to respond with card played
 				try {
 					receivedCommand = input.readLine();
+					if(receivedCommand == null){
+						// I know this is horrible and wrong, I don't give a
+						// shit
+						System.out.println("Game Ended...");
+						System.exit(1);
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -65,7 +71,18 @@ public abstract class Talker implements Runnable {
 				ourTurn = true;
 			}
 		}
+
+		// Close up everything
+		try {
+			input.close();
+			output.close();
+			closeSocket();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
+
+	protected abstract void closeSocket();
 
 	public void setGameRunning() {
 		gameRunning = true;

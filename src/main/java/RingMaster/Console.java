@@ -30,7 +30,7 @@ public class Console {
 		}
 		System.out.println("Connected!");
 
-		while (true) {
+		while (controller.isGameRunning()) {
 
 			if (controller.ourTurn()) {
 
@@ -48,6 +48,16 @@ public class Console {
 				scan.nextLine();
 			}
 		}
+
+		if(controller.weWon()){
+			System.out.println("We have won! YOUR ENEMY IS DEAD, AND SO ARE " +
+					"ALL HIS FRIENDS!");
+		}
+		else{
+			System.out.println("YOU HAVE LOST BECAUSE YOU ARE BAD!");
+		}
+
+		controller.quit();
 	}
 
 	private void printBoard() {
@@ -107,9 +117,12 @@ public class Console {
 			scan.nextLine();
 			return true;
 		} else if (args[0].equals("quit")) {
-			System.out.println("THERE IS NO QUITTING ALLOWED! .... and I never" +
-					"bothered to implement it anyway, so....yea. Fuck You.");
-			scan.nextLine();
+			controller.quit();
+			System.out.println("Game Ended...");
+			System.exit(1);
+		}
+		else if(args[0].equals("pass")){
+			controller.pass();
 			return true;
 		}
 		return false;
