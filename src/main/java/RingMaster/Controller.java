@@ -26,4 +26,16 @@ public class Controller {
 	public CardCollection getHand() {
 		return model.getOurHand();
 	}
+
+	public boolean ourTurn() {
+		return model.isOurTurn();
+	}
+
+	public void awaitOurTurn() {
+		model.awaitOurTurn();
+	}
+
+	public boolean placeCard(int card, int ringPos) {
+		return model.playCard(ringPos, card);
+	}
 }

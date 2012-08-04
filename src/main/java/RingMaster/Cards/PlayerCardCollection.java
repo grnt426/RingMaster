@@ -38,4 +38,8 @@ public class PlayerCardCollection {
 	public void addToDeck(Card c){
 		deck.addCard(c);
 	}
+
+	public void removeCardFromHand(int handPos) {
+		hand.removeCard(handPos);
+	}
 }

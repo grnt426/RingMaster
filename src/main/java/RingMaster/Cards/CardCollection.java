@@ -59,4 +59,8 @@ public class CardCollection {
 	public Card getCard(int i) {
 		return cards.get(i);
 	}
+
+	public void removeCard(int pos) {
+		cards.remove(pos);
+	}
 }

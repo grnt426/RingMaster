@@ -25,24 +25,26 @@ public class Model {
 	Server server;
 	Talker talker;
 	private String name;
+	private String command;
 
 	public Model(String name) {
 		this.name = name;
 		board = new Board();
+		command = null;
 
 		listen = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand().equals("endTurn")){
+				if (e.getActionCommand().equals("endTurn")) {
+					String command = talker.getCommand();
+					processReceivedCommand(command);
 					ourTurn = true;
-				}
-				else if(e.getActionCommand().equals("seedSet")){
+				} else if (e.getActionCommand().equals("seedSet")) {
 					SEED = client.getSeed();
 					gen = new Random(SEED);
 					initializeCards(false);
 					gameRunning = true;
-				}
-				else if(e.getActionCommand().equals("start")){
+				} else if (e.getActionCommand().equals("start")) {
 					ourTurn = true;
 					gameRunning = true;
 				}
@@ -50,20 +52,36 @@ public class Model {
 		};
 	}
 
-	public void playCard(int handPos, int placePos){
-
+	private void processReceivedCommand(String command) {
+		String[] args = command.split(":");
+		int handPos = Integer.parseInt(args[0]);
+		int ringPos = Integer.parseInt(args[1]);
+		playOthersCards(handPos, ringPos);
 	}
 
-	public void sendCommand(String command){
-		talker.setTheirTurn(command);
-		do{
-			try{
+	private void playOthersCards(int handPos, int ringPos) {
+		board.playOtherCard(handPos, ringPos);
+	}
+
+	public boolean playCard(int handPos, int placePos) {
+		command = handPos + ":" + placePos;
+		if(board.playCard(handPos, placePos)){
+			ourTurn = false;
+			return true;
+		}
+		return false;
+	}
+
+	public void awaitOurTurn() {
+		if(command != null)
+			talker.setTheirTurn(command);
+		do {
+			try {
 				Thread.sleep(50);
-			}
-			catch (InterruptedException i){
+			} catch (InterruptedException i) {
 				i.printStackTrace();
 			}
-		}while(!ourTurn);
+		} while (!ourTurn);
 	}
 
 	public void startServer() {
@@ -93,5 +111,9 @@ public class Model {
 
 	public CardCollection getOurHand() {
 		return board.getHand();
+	}
+
+	public boolean isOurTurn() {
+		return ourTurn;
 	}
 }

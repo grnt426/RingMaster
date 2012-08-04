@@ -97,4 +97,8 @@ public abstract class Talker implements Runnable {
 	public OutputStream getOutput() {
 		return output;
 	}
+
+	public String getCommand() {
+		return receivedCommand;
+	}
 }

@@ -61,9 +61,40 @@ public class Board {
 	}
 
 	public CardCollection getHand() {
-		if(isPlayerOne)
+		if (isPlayerOne)
 			return playerOneCards.getHand();
 		else
 			return playerTwoCards.getHand();
+	}
+
+	public boolean playCard(int handPos, int placePos) {
+		if (isPlayerOne) {
+			Card c = playerOneCards.getHand().getCard(handPos);
+			if (playerOneRing.setCard(c, placePos)) {
+				playerOneCards.removeCardFromHand(handPos);
+				return true;
+			}
+		} else {
+			Card c = playerTwoCards.getHand().getCard(handPos);
+			if (playerTwoRing.setCard(c, placePos)) {
+				playerTwoCards.removeCardFromHand(handPos);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void playOtherCard(int handPos, int ringPos) {
+		if (!isPlayerOne) {
+			Card c = playerOneCards.getHand().getCard(handPos);
+			if (playerOneRing.setCard(c, ringPos)) {
+				playerOneCards.removeCardFromHand(handPos);
+			}
+		} else {
+			Card c = playerTwoCards.getHand().getCard(handPos);
+			if (playerTwoRing.setCard(c, ringPos)) {
+				playerTwoCards.removeCardFromHand(handPos);
+			}
+		}
 	}
 }
