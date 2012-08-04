@@ -10,4 +10,10 @@ public class Console {
 	public Console(Controller c) {
 		controller = c;
 	}
+
+	public void processCommands() {
+		while(true){
+
+		}
+	}
 }

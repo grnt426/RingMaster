@@ -5,12 +5,11 @@ package RingMaster;
  */
 public class Controller {
 
-	public Controller(boolean server, Model model) {
-		if(server){
-			model.startServer();
-		}
-		else{
-			model.startClient();
-		}
+	public Controller(String name, Model model){
+		model.startServer();
+	}
+
+	public Controller(String name, Model model, String ip) {
+		model.startClient(ip);
 	}
 }

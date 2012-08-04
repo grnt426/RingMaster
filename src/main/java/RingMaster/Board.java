@@ -1,8 +1,11 @@
 package RingMaster;
 
+import RingMaster.Cards.Monster;
 import RingMaster.Cards.PlayerCard;
 import RingMaster.Cards.PlayerCardCollection;
 import RingMaster.Cards.RotationCard;
+
+import java.util.Random;
 
 /**
  * Author:      Grant Kurtz
@@ -12,20 +15,22 @@ public class Board {
 	/**
 	 * The two players' Rings
 	 */
-	Ring playerOneRing;
-	Ring playerTwoRing;
+	private Ring playerOneRing;
+	private Ring playerTwoRing;
 
 	/**
 	 * The two player's set of cards
 	 */
-	PlayerCardCollection playerOneCards;
-	PlayerCardCollection playerTwoCards;
+	private PlayerCardCollection playerOneCards;
+	private PlayerCardCollection playerTwoCards;
 
 	/**
 	 * The two player's Player Cards
 	 */
-	PlayerCard playerOnePC;
-	PlayerCard playerTwoPC;
+	private PlayerCard playerOnePC;
+	private PlayerCard playerTwoPC;
+
+	private boolean isPlayerOne;
 
 	public Board() {
 
@@ -38,5 +43,24 @@ public class Board {
 		playerTwoPC = new PlayerCard();
 		playerTwoRing = new Ring(playerTwoPC, new RotationCard(1));
 		playerTwoCards = new PlayerCardCollection();
+	}
+
+	public void initCards(Random gen, boolean playerOne) {
+		isPlayerOne = playerOne;
+
+		// Generate Player One's deck
+		for (int i = 0; i < 50; i++) {
+			playerOneCards.addToDeck(new Monster(CardInstance.MONSTER,
+					CardType.ATTACK));
+		}
+		playerOneCards.drawCards(5);
+
+
+		// Generate Player Two's deck
+		for (int i = 0; i < 50; i++) {
+			playerTwoCards.addToDeck(new Monster(CardInstance.MONSTER,
+					CardType.ATTACK));
+		}
+		playerTwoCards.drawCards(5);
 	}
 }

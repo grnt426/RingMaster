@@ -9,29 +9,27 @@ public class Main {
 	private static final String SERVER = "server";
 
 	public static void main(String[] args){
-		if(args.length != 2){
-			printBadArgs();
-			System.exit(1);
-		}
-
-		String name = args[1];
+		String name = args[0];
+		Model model = new Model(name);
 		Controller c = null;
-		if(args[0].equalsIgnoreCase(CLIENT)){
-			 c = new Controller(false, new Model());
+		if(args.length == 1){
+			c = new Controller(name, model);
 		}
-		else if(args[0].equalsIgnoreCase(SERVER)){
-			c = new Controller(true, new Model());
+		else if(args.length == 2){
+			c = new Controller(name, model, args[1]);
 		}
 		else{
 			printBadArgs();
 			System.exit(1);
 		}
+
 		Console cli = new Console(c);
 		System.out.println("RingMaster!");
+		cli.processCommands();
 	}
 
 	private static void printBadArgs() {
-		System.err.println("Usage: java -jar ringmaster.jar client/server " +
-				"name");
+		System.err.println("Usage: java -jar ringmaster.jar name " +
+				"[server IP]");
 	}
 }

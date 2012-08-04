@@ -81,7 +81,7 @@ public abstract class Talker implements Runnable {
 		gameRunning = false;
 	}
 
-	public void setOurTurn(String command) {
+	public void setTheirTurn(String command) {
 		toSendCommand = command;
 		ourTurn = false;
 	}

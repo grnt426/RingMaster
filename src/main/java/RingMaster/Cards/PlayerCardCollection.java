@@ -34,4 +34,8 @@ public class PlayerCardCollection {
 	public CardCollection getHand(){
 		return hand;
 	}
+
+	public void addToDeck(Card c){
+		deck.addCard(c);
+	}
 }
