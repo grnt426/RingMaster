@@ -54,7 +54,7 @@ public class Console {
 					ourRing.getPlayerCard() + "    " + ourRing.getCard(1));
 			System.out.println();
 			System.out.println("    " + ourRing.getCard(3) + "     " +
-								ourRing.getCard(2));
+					ourRing.getCard(2));
 
 			// Print our Hand
 			CardCollection hand = controller.getHand();
@@ -93,13 +93,11 @@ public class Console {
 			int card = Integer.parseInt(args[1]) - 1;
 			int ringPos = Integer.parseInt(args[2]) - 1;
 			return controller.placeCard(card, ringPos);
-		}
-		else if(args[0].equals("menu")){
+		} else if (args[0].equals("menu")) {
 			showCommandList();
 			scan.nextLine();
 			return true;
-		}
-		else if(args[0].equals("quit")){
+		} else if (args[0].equals("quit")) {
 			System.out.println("THERE IS NO QUITTING ALLOWED! .... and I never" +
 					"bothered to implement it anyway, so....yea. Fuck You.");
 			scan.nextLine();
@@ -110,8 +108,7 @@ public class Console {
 
 	private void showCommandList() {
 		System.out.println(
-				"play card_hand_pos card_ring_pos - Place a card on the " +
-						"Ring\n" +
+				"play card pos - Place a card on the Ring\n" +
 						"quit - Quit the game");
 	}
 }
