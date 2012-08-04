@@ -36,6 +36,14 @@ public class Controller {
 	}
 
 	public boolean placeCard(int card, int ringPos) {
-		return model.playCard(ringPos, card);
+		return model.playCard(card, ringPos);
+	}
+
+	public Ring getTheirRing() {
+		return model.getTheirRing();
+	}
+
+	public Ring getOurRing() {
+		return model.getOurRing();
 	}
 }

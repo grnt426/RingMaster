@@ -24,6 +24,21 @@ public abstract class Card {
 		return name;
 	}
 
+	public String toString(){
+		if(name == CardInstance.PLAYER)
+			return "@";
+		return name.toString().charAt(0) + "";
+	}
+
 	public abstract Card clone();
 
+	public abstract int getAttackPower();
+
+	public abstract int getDefensePower();
+
+	public abstract void applyDamage(int dmg);
+
+	public abstract int getHealth();
+
+	public abstract boolean expired();
 }

@@ -47,7 +47,7 @@ public class Ring {
 
 	public Card applyRotation(){
 		for(int i = 0; i < rotation.getRotationCount(); i++){
-			Card c = ring.poll();
+			Card c = ring.pollLast();
 			ring.push(c);
 		}
 		return ring.peek();
@@ -55,5 +55,9 @@ public class Ring {
 
 	public PlayerCard getPlayerCard(){
 		return playerCard;
+	}
+
+	public int getRotationAmount() {
+		return rotation.getRotationCount();
 	}
 }

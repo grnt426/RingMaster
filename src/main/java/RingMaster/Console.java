@@ -20,7 +20,7 @@ public class Console {
 
 	public void processCommands() {
 		System.out.print("Connecting");
-		while(!controller.isGameRunning()){
+		while (!controller.isGameRunning()) {
 			try {
 				Thread.sleep(200);
 			} catch (InterruptedException e) {
@@ -30,27 +30,45 @@ public class Console {
 		}
 		System.out.println("Connected!");
 
-		while(true){
+		while (true) {
 
-			// Print game status
+			// Print Opposing player's Ring
+			Ring theirRing = controller.getTheirRing();
+			System.out.println("    " + theirRing.getCard(2) + "     " +
+					theirRing.getCard(3));
+			System.out.println();
+			System.out.println("  " + theirRing.getCard(1) + "    " +
+					theirRing.getPlayerCard() + "    " + theirRing.getCard(4));
+			System.out.println();
+			System.out.println("       " + theirRing.getCard(0) + "      " +
+					theirRing.getRotationAmount());
+
+			// Print separator
+			System.out.println("---------------------");
+
+			// Print our Ring
+			Ring ourRing = controller.getOurRing();
+			System.out.println(ourRing.getRotationAmount() + "      " + ourRing.getCard(0));
+			System.out.println();
+			System.out.println("  " + ourRing.getCard(4) + "    " +
+					ourRing.getPlayerCard() + "    " + ourRing.getCard(1));
+			System.out.println();
+			System.out.println("    " + ourRing.getCard(3) + "     " +
+								ourRing.getCard(2));
+
+			// Print our Hand
 			CardCollection hand = controller.getHand();
-			System.out.println("Hand:");
-			for(int i = 0; i < hand.getCardCount(); i++){
+			System.out.println();
+			for (int i = 0; i < hand.getCardCount(); i++) {
 				Card c = hand.getCard(i);
-				System.out.println(i + ". " + c.getName() + ", " + c.getType());
+				System.out.println((i + 1) + ". " + c.getName() + ", " + c.getType());
 			}
 
-			if(controller.ourTurn()){
-
-				// prompt for commands
-				System.out.println("Take turn!");
-
-				// print command list
+			if (controller.ourTurn()) {
 
 				// Input Caret
 				processCommand();
-			}
-			else{
+			} else {
 				System.out.println("Waiting for other player to finish...");
 				controller.awaitOurTurn();
 			}
@@ -59,10 +77,9 @@ public class Console {
 
 	private void processCommand() {
 		String command = "";
-		showCommandList();
 		System.out.print("> ");
 		command = scan.nextLine();
-		while(!isValidCommand(command)){
+		while (!isValidCommand(command)) {
 			System.err.println("'" + command + "' is an invalid command!");
 			showCommandList();
 			System.out.print("> ");
@@ -72,10 +89,21 @@ public class Console {
 
 	private boolean isValidCommand(String command) {
 		String[] args = command.split(" ");
-		if(args[0].equals("play")){
-			int card = Integer.parseInt(args[1]);
-			int ringPos = Integer.parseInt(args[2]);
+		if (args[0].equals("play")) {
+			int card = Integer.parseInt(args[1]) - 1;
+			int ringPos = Integer.parseInt(args[2]) - 1;
 			return controller.placeCard(card, ringPos);
+		}
+		else if(args[0].equals("menu")){
+			showCommandList();
+			scan.nextLine();
+			return true;
+		}
+		else if(args[0].equals("quit")){
+			System.out.println("THERE IS NO QUITTING ALLOWED! .... and I never" +
+					"bothered to implement it anyway, so....yea. Fuck You.");
+			scan.nextLine();
+			return true;
 		}
 		return false;
 	}
@@ -83,7 +111,7 @@ public class Console {
 	private void showCommandList() {
 		System.out.println(
 				"play card_hand_pos card_ring_pos - Place a card on the " +
-				"Ring\n" +
-				"quit - Quit the game");
+						"Ring\n" +
+						"quit - Quit the game");
 	}
 }

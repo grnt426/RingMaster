@@ -32,12 +32,12 @@ public class Board {
 	public Board() {
 
 		// Initialize Player One's data
-		playerOnePC = new PlayerCard();
+		playerOnePC = new PlayerCard(CardInstance.PLAYER, CardType.TYPELESS);
 		playerOneRing = new Ring(playerOnePC, new RotationCard(1));
 		playerOneCards = new PlayerCardCollection();
 
 		// Initialize Player Two's data
-		playerTwoPC = new PlayerCard();
+		playerTwoPC = new PlayerCard(CardInstance.PLAYER, CardType.TYPELESS);
 		playerTwoRing = new Ring(playerTwoPC, new RotationCard(1));
 		playerTwoCards = new PlayerCardCollection();
 	}
@@ -127,4 +127,59 @@ public class Board {
 		else
 			playerOneCards.fillHand();
 	}
+
+	public Ring getTheirRing() {
+		if (isPlayerOne)
+			return playerTwoRing;
+		else
+			return playerOneRing;
+	}
+
+	public Ring getOurRing() {
+		if (isPlayerOne)
+			return playerOneRing;
+		else
+			return playerTwoRing;
+	}
+
+	public void rotateOurs() {
+		if (isPlayerOne)
+			playerOneRing.applyRotation();
+		else
+			playerTwoRing.applyRotation();
+	}
+
+	public void rotateTheirs() {
+		if (isPlayerOne)
+			playerTwoRing.applyRotation();
+		else
+			playerOneRing.applyRotation();
+	}
+
+	public void activateOurs() {
+		Ring ring;
+		Ring theirRing;
+		if(isPlayerOne){
+			ring = playerOneRing;
+			theirRing = playerTwoRing;
+		}
+		else{
+			ring = playerTwoRing;
+			theirRing = playerOneRing;
+		}
+
+		Card active = ring.getCard(0);
+		Card theirActive = theirRing.getCard(0);
+
+		activateCard(active, theirActive);
+	}
+
+	private void activateCard(Card active, Card theirActive) {
+		if(active.getType() == CardType.ATTACK){
+			int dmg = active.getAttackPower() - theirActive.getDefensePower();
+			theirActive.applyDamage(dmg);
+		}
+	}
+
+
 }

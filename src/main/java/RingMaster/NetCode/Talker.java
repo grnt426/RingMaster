@@ -37,13 +37,12 @@ public abstract class Talker implements Runnable {
 
 				// Tell client card that was played
 				if(toSendCommand != null){
-					System.out.println("SENDING: " + toSendCommand);
 					try {
 						output.write(toSendCommand+"\n");
 						output.flush();
 					} catch (IOException e) {
 						System.err.println("O GOD I AM SO SORRY SOMETHING BLOWED " +
-								"UP! QUITTING AS SOON AS FUCKING POSSIBLE!");
+								"UP! TAKING THE WHOLE SHIP WITH US, BECAUSE FUCK YOU!");
 						e.printStackTrace();
 						try {
 							input.close();

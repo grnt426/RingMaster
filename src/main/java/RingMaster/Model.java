@@ -54,8 +54,6 @@ public class Model {
 
 	private void processReceivedCommand(String command) {
 		String[] args = command.split(":");
-		System.out.println("COMMAND: " + command);
-		System.out.println(args[0] + ": " + args[1]);
 		int handPos = Integer.parseInt(args[0]);
 		int ringPos = Integer.parseInt(args[1]);
 		playOthersCards(handPos, ringPos);
@@ -64,12 +62,15 @@ public class Model {
 	private void playOthersCards(int handPos, int ringPos) {
 		board.playOtherCard(handPos, ringPos);
 		board.fillTheirHand();
+		board.rotateTheirs();
 	}
 
 	public boolean playCard(int handPos, int placePos) {
 		command = handPos + ":" + placePos;
 		if(board.playCard(handPos, placePos)){
 			board.fillOurHand();
+			board.activateOurs();
+			board.rotateOurs();
 			ourTurn = false;
 			return true;
 		}
@@ -119,5 +120,13 @@ public class Model {
 
 	public boolean isOurTurn() {
 		return ourTurn;
+	}
+
+	public Ring getTheirRing() {
+		return board.getTheirRing();
+	}
+
+	public Ring getOurRing() {
+		return board.getOurRing();
 	}
 }
