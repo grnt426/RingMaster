@@ -77,14 +77,14 @@ The '\>' indicates that the game is waiting for your input.
 Game Commands
 -------------
 The below is an example of what running the available command set looks like.
-\> menu
-play card pos - Place a card on the Ring
-quit - Quit the game
+    \> menu
+    play card pos - Place a card on the Ring
+    quit - Quit the game
 
-\> play 3 5
-Placed card at 5.
-Added MONSTER to hand.
-Rotated CW by 1.
+    \> play 3 5
+    Placed card at 5.
+    Added MONSTER to hand.
+    Rotated CW by 1.
 
 ***
 
