@@ -83,8 +83,8 @@ public class Board {
 			return playerTwoCards.getHand();
 	}
 
-	public boolean playCard(int handPos, int placePos) {
-		if (isPlayerOne) {
+	public boolean playCard(boolean playerOne, int handPos, int placePos) {
+		if (playerOne) {
 			Card c = playerOneCards.getHand().getCard(handPos);
 			if (playerOneRing.setCard(c, placePos)) {
 				playerOneCards.removeCardFromHand(handPos);
@@ -100,66 +100,31 @@ public class Board {
 		return false;
 	}
 
-	public void playOtherCard(int handPos, int ringPos) {
-		if (!isPlayerOne) {
-			Card c = playerOneCards.getHand().getCard(handPos);
-			if (playerOneRing.setCard(c, ringPos)) {
-				playerOneCards.removeCardFromHand(handPos);
-			}
-		} else {
-			Card c = playerTwoCards.getHand().getCard(handPos);
-			if (playerTwoRing.setCard(c, ringPos)) {
-				playerTwoCards.removeCardFromHand(handPos);
-			}
-		}
-	}
-
-	public void fillOurHand() {
-		if (isPlayerOne)
+	public void fillHand(boolean playerOne) {
+		if (playerOne)
 			playerOneCards.fillHand();
 		else
 			playerTwoCards.fillHand();
 	}
 
-	public void fillTheirHand() {
-		if (isPlayerOne)
-			playerTwoCards.fillHand();
-		else
-			playerOneCards.fillHand();
-	}
-
-	public Ring getTheirRing() {
-		if (isPlayerOne)
-			return playerTwoRing;
-		else
-			return playerOneRing;
-	}
-
-	public Ring getOurRing() {
-		if (isPlayerOne)
+	public Ring getRing(boolean playerOne) {
+		if (playerOne)
 			return playerOneRing;
 		else
 			return playerTwoRing;
 	}
 
-	public void rotateOurs() {
-		if (isPlayerOne)
+	public void rotate(boolean playerOne) {
+		if (playerOne)
 			playerOneRing.applyRotation();
 		else
 			playerTwoRing.applyRotation();
 	}
 
-	public void rotateTheirs() {
-		if (isPlayerOne)
-			playerTwoRing.applyRotation();
-		else
-			playerOneRing.applyRotation();
-	}
-
-	public void activateOurs() {
+	public void activate(boolean playerOne) {
 		Ring ring;
 		Ring theirRing;
-		if(isPlayerOne){
+		if(playerOne){
 			ring = playerOneRing;
 			theirRing = playerTwoRing;
 		}
@@ -182,4 +147,7 @@ public class Board {
 	}
 
 
+	public boolean isPlayerOne() {
+		return isPlayerOne;
+	}
 }

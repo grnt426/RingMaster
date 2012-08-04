@@ -17,4 +17,29 @@ public class None extends Card {
 		None n = new None(getName(), getType());
 		return n;
 	}
+
+	@Override
+	public int getAttackPower() {
+		return 0;
+	}
+
+	@Override
+	public int getDefensePower() {
+		return 0;
+	}
+
+	@Override
+	public void applyDamage(int dmg) {
+
+	}
+
+	@Override
+	public int getHealth() {
+		return 0;
+	}
+
+	@Override
+	public boolean expired() {
+		return false;
+	}
 }

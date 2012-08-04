@@ -60,17 +60,17 @@ public class Model {
 	}
 
 	private void playOthersCards(int handPos, int ringPos) {
-		board.playOtherCard(handPos, ringPos);
-		board.fillTheirHand();
-		board.rotateTheirs();
+		board.playCard(!board.isPlayerOne(), handPos, ringPos);
+		board.fillHand(!board.isPlayerOne());
+		board.rotate(!board.isPlayerOne());
 	}
 
 	public boolean playCard(int handPos, int placePos) {
 		command = handPos + ":" + placePos;
-		if(board.playCard(handPos, placePos)){
-			board.fillOurHand();
-			board.activateOurs();
-			board.rotateOurs();
+		if(board.playCard(board.isPlayerOne(), handPos, placePos)){
+			board.fillHand(board.isPlayerOne());
+			board.activate(board.isPlayerOne());
+			board.rotate(board.isPlayerOne());
 			ourTurn = false;
 			return true;
 		}
@@ -123,10 +123,10 @@ public class Model {
 	}
 
 	public Ring getTheirRing() {
-		return board.getTheirRing();
+		return board.getRing(!board.isPlayerOne());
 	}
 
 	public Ring getOurRing() {
-		return board.getOurRing();
+		return board.getRing(board.isPlayerOne());
 	}
 }
